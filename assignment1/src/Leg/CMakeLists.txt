@@ -1,1 +1,1 @@
-create_library(NAME Leg)
+create_library(NAME leg)
