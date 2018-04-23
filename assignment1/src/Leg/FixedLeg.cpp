@@ -14,13 +14,13 @@ double FixedLeg::price() {
 	int nDaysYear = dayCalculator.getNDaysYear();
 
 	//Obtenmos el numero de dias total que dura la inversion
-	int nDaysInvest = dayCalculator.compute_daycount(vPeriods.front(), vPeriods.back());
+	double nDaysInvest = dayCalculator.compute_daycount(vPeriods.front(), vPeriods.back());
 
 	//Calculamos las dcfs (Day count fraction)
 	int i;
 	std::vector<double> dcfs{};
 	for(i = 1; i < vPeriods.size(); i++){
-		double dcf = (double)dayCalculator.compute_daycount(vPeriods.at(i - 1), vPeriods.at(i)) / (double)nDaysYear;
+		double dcf = dayCalculator.compute_daycount(vPeriods.at(i - 1), vPeriods.at(i)) / (double)nDaysYear;
 		dcfs.push_back(dcf);
 	}
 
@@ -34,7 +34,7 @@ double FixedLeg::price() {
 	double res = 0.0;
 	double rActInc = 0.0;
 	for(i = 1; i < vPeriods.size(); i++){
-		rActInc += (double)dayCalculator.compute_daycount(vPeriods.at(i - 1), vPeriods.at(i)) / (double)nDaysInvest;
+		rActInc += dayCalculator.compute_daycount(vPeriods.at(i - 1), vPeriods.at(i)) / nDaysInvest;
 		res += aCashFlows.at(i - 1) * std::exp(-(rate * rActInc));
 	}
 	return res;
