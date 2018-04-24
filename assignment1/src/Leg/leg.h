@@ -1,16 +1,17 @@
+#include <cstring>
+#include <vector>
+#include <string>
+#include <Btime/btime.h>
 /**
  * Clase que representa una pata de un instrumento financiero.
  * Una pata de un instrumento financiero se considera una serie de peridos en un intervalo de tiempo concreto
  * Para calcular el precio de una pata hace falta el nocional o nominal principal, el interes fijado (en caso de
  * ser una pata flotante, se necesita una curva de interes, que implementa la subclase 'Floating Leg'), las fechas
- * de inicio y fin y el numero de subperiodos que consta el periodo principal (en esta practica se considera un año)
+ * de inicio y fin y el numero de subperiodos que consta el periodo principal (en esta practica se considera un aÃ±o)
  * NOTA: El interes proporcionado se asume que es acorde al subperiodo concreto (si son dos subperiosos, el interes es semianual,
  * si son 3 subperiodos el interes es trimestarl, etc). Respecto a las fechas, estas deben ser ordenadas de menor a mayor y la primera
  * fecha se corresponde a la fecha de acuerdo del instrumento (bono o swap) y el resto son las fechas correspondientes al pago de flujos
  */
-#include <cstring>
-#include <vector>
-#include <string>
 
 //Clase prinbcipal
 class Leg {
