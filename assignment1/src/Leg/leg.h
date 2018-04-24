@@ -1,6 +1,5 @@
-#include <cstring>
-#include <vector>
 #include <string>
+#include <vector>
 #include <Btime/btime.h>
 /**
  * Clase que representa una pata de un instrumento financiero.
