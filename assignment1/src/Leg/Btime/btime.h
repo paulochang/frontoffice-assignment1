@@ -22,16 +22,14 @@ class DayCountCalculator {
 		DayCountCalculator(int eNDaysYear) : nDaysYear{eNDaysYear} {}
 
 		//Metodo para obtener el numero de dias a partir de un par de fechas en strings o por boost::gregorian::date (DD/MM/YYYY)
-		double compute_daycount(const std::string& from, const std::string& to);
-		virtual double compute_daycount(const boost::gregorian::date& from, const boost::gregorian::date & to) = 0;
+		double compute_daycount(const std::string& from, const std::string& to) const;
+
 
 		//Obtiene el numero de dias que hay en un año
 		int getNDaysYear();
 
-		//Operador ()
-		template<class DATE>
-		double operator()(const DATE& start, const DATE& end) const {
-			return compute_daycount(start, end);
+		double operator()(const std::string& start, const std::string& end_period) const {
+			return compute_daycount(start, end_period);
 		}
 };
 
@@ -41,9 +39,7 @@ class Actual_360 : public DayCountCalculator {
 
 		//Constructor.
 		Actual_360() : DayCountCalculator(N_DAYS_ACTUAL_360) {}
-
-		//Metodo para obtener el numero de dias a partir de boost::gregorian::date (DD/MM/YYYY)
-		double compute_daycount(const boost::gregorian::date& from, const boost::gregorian::date & to);
+;
 };
 
 //Clases hija Actual/360
@@ -54,8 +50,6 @@ class Thirty_360 : public DayCountCalculator {
 		//Constructor.
 		Thirty_360() : DayCountCalculator(N_DAYS_THIRTY_360) {}
 
-		//Metodo para obtener el numero de dias a partir de boost::gregorian::date (DD/MM/YYYY)
-		double compute_daycount(const boost::gregorian::date& from, const boost::gregorian::date & to);
 	private:
 
 		//Metodo auxiliar para el calculo de los dias en 30/360
