@@ -1,0 +1,1 @@
+boost_test_project(NAME test_utils DEPS utils)
