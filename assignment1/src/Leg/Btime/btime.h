@@ -16,11 +16,11 @@
 class DayCountCalculator {
 	private:
 
-        //Dias que tiene un año segun el convenio instanciado
+        	//Dias que tiene un año segun el convenio instanciado
 		int nDaysYear;
 
-        //Metodo para compuatr el numero de dias a partir de objetos boos::gregorian::date
-        virtual double ccompute_daycount_boost(const boost::gregorian::date& bfrom, const boost::gregorian::date& bto) const = 0;
+        	//Metodo para compuatr el numero de dias a partir de objetos boos::gregorian::date
+        	virtual double ccompute_daycount_boost(const boost::gregorian::date& bfrom, const boost::gregorian::date& bto) const = 0;
 	public:
 
 		//Constructor.Recibe el numero de dias que tiene un año
@@ -59,8 +59,8 @@ class Thirty_360 : public DayCountCalculator {
 		Thirty_360() : DayCountCalculator(N_DAYS_THIRTY_360) {}
 	private:
 
-        //Definicion del metodo privado para computar el numero de dias a partir de un objeto boos::gregorian::date
-        double ccompute_daycount_boost(const boost::gregorian::date& bfrom, const boost::gregorian::date& bto) const;
+        	//Definicion del metodo privado para computar el numero de dias a partir de un objeto boos::gregorian::date
+        	double ccompute_daycount_boost(const boost::gregorian::date& bfrom, const boost::gregorian::date& bto) const;
 
 		//Metodo auxiliar para el calculo de los dias en 30/360
 		double compute_daycount_1(const short years, const short months, const short days_from, const short days_to);
