@@ -40,22 +40,18 @@ class DayCountCalculator {
 
 //Clases hija Actual/360
 class Actual_360 : public DayCountCalculator {
-	public:
-
-		//Constructor.
-		Actual_360() : DayCountCalculator(N_DAYS_ACTUAL_360) {}
 	private:
 
         	//Definicion del metodo privado para computar el numero de dias a partir de un objeto boos::gregorian::date
        		double ccompute_daycount_boost(const boost::gregorian::date& bfrom, const boost::gregorian::date& bto) const;
+	public:
+
+		//Constructor.
+		Actual_360() : DayCountCalculator(N_DAYS_ACTUAL_360) {}
 };
 
 //Clases hija Actual/360
 class Thirty_360 : public DayCountCalculator {
-	public:
-
-		//Constructor.
-		Thirty_360() : DayCountCalculator(N_DAYS_THIRTY_360) {}
 	private:
 
         	//Definicion del metodo privado para computar el numero de dias a partir de un objeto boos::gregorian::date
@@ -63,4 +59,8 @@ class Thirty_360 : public DayCountCalculator {
 
 		//Metodo auxiliar para el calculo de los dias en 30/360
 		double compute_daycount_1(const short years, const short months, const short days_from, const short days_to);
+	public:
+
+		//Constructor.
+		Thirty_360() : DayCountCalculator(N_DAYS_THIRTY_360) {}
 };
