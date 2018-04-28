@@ -39,17 +39,14 @@ class Actual_360 : public DayCountCalculator {
 
 		//Constructor.
 		Actual_360() : DayCountCalculator(N_DAYS_ACTUAL_360) {}
-;
 };
 
-//Clases hija Actual/360
 //Clases hija Actual/360
 class Thirty_360 : public DayCountCalculator {
 	public:
 
 		//Constructor.
 		Thirty_360() : DayCountCalculator(N_DAYS_THIRTY_360) {}
-
 	private:
 
 		//Metodo auxiliar para el calculo de los dias en 30/360
