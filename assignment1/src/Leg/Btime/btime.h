@@ -40,14 +40,14 @@ class DayCountCalculator {
 
 //Clases hija Actual/360
 class Actual_360 : public DayCountCalculator {
-    private:
-
-        //Definicion del metodo privado para computar el numero de dias a partir de un objeto boos::gregorian::date
-        double ccompute_daycount_boost(const boost::gregorian::date& bfrom, const boost::gregorian::date& bto) const;
 	public:
 
 		//Constructor.
 		Actual_360() : DayCountCalculator(N_DAYS_ACTUAL_360) {}
+	private:
+
+        	//Definicion del metodo privado para computar el numero de dias a partir de un objeto boos::gregorian::date
+       		double ccompute_daycount_boost(const boost::gregorian::date& bfrom, const boost::gregorian::date& bto) const;
 };
 
 //Clases hija Actual/360
