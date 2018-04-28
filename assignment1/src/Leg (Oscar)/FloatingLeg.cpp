@@ -1,4 +1,4 @@
-#include "Leg.h"
+#include "leg.h"
 #include <cmath>
 /**
  * Implementacion de la clase 'FloatingLeg' que representa los pagos flotantes

@@ -1,3 +1,6 @@
+#ifndef BTIME_H
+#define BTIME_H
+
 #include <boost/date_time/gregorian/gregorian.hpp>
 #include <string>
 /**
@@ -17,6 +20,7 @@ class DayCountCalculator {
 	private:
 		int nDaysYear;
 	public:
+		
 
 		//Constructor.Recibe el numero de dias que tiene un año
 		DayCountCalculator(int eNDaysYear) : nDaysYear{eNDaysYear} {}
@@ -55,3 +59,5 @@ class Thirty_360 : public DayCountCalculator {
 		//Metodo auxiliar para el calculo de los dias en 30/360
 		double compute_daycount(const short years, const short months, const short days_from, const short days_to);
 };
+
+#endif

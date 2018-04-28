@@ -1,2 +1,2 @@
-add_subdirectory(Btime)
+add_subdirectory(DayCountCalculator)
 create_library(NAME leg)

@@ -1,4 +1,4 @@
-#include "Leg.h"
+#include "leg.h"
 #include <cmath>
 /**
  * Implementacion de la clase 'FixedLeg' que representa los pagos fijos
@@ -11,7 +11,7 @@
 double FixedLeg::price() {
 
 	//Obtenemos el numero de dias de un año de la calculadora instanciada
-	int nDaysYear = 360;//dayCalculator.getNDaysYear();
+	int nDaysYear = dayCalculator.getNDaysYear();
 
 	//Obtenmos el numero de dias total que dura la inversion
 	double nDaysInvest = dayCalculator.compute_daycount(vPeriods.front(), vPeriods.back());
