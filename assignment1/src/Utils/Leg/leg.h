@@ -1,6 +1,6 @@
 #include <string>
 #include <vector>
-#include <Btime/btime.h>
+#include "Btime/btime.h"
 /**
  * Clase que representa una pata de un instrumento financiero.
  * Una pata de un instrumento financiero se considera una serie de peridos en un intervalo de tiempo concreto
