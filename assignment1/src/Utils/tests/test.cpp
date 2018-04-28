@@ -41,14 +41,14 @@ BOOST_AUTO_TEST_SUITE(utils_boost)
         double amount = 100;
         double annual_rate = 10.0/100;
         int number_of_years = 2;
-        double capitalized_value = 121; // (100*(1.1)^2)
+        double theoretical_value = 121; // (100*(1.1)^2)
 
         auto calculated_value = annual_capitalization(amount, annual_rate, number_of_years);
 
         BOOST_TEST_MESSAGE(" - calculated_value: " << calculated_value);
-        BOOST_TEST_MESSAGE(" - known_capitalization: " << capitalized_value);
-        BOOST_TEST_MESSAGE(" - diff " << calculated_value-capitalized_value);
-        BOOST_TEST(capitalized_value == capitalized_value, boost::test_tools::tolerance(1e-15));
+        BOOST_TEST_MESSAGE(" - known_capitalization: " << theoretical_value);
+        BOOST_TEST_MESSAGE(" - diff " << calculated_value-theoretical_value);
+        BOOST_TEST(theoretical_value == calculated_value, boost::test_tools::tolerance(1e-15));
     }
 
 	BOOST_AUTO_TEST_CASE(period_cap1)
@@ -66,7 +66,7 @@ BOOST_AUTO_TEST_SUITE(utils_boost)
 		BOOST_TEST_MESSAGE(" - calculated_value: " << calculated_value);
 		BOOST_TEST_MESSAGE(" - known_capitalization: " << theoretical_value);
 		BOOST_TEST_MESSAGE(" - diff " << calculated_value-theoretical_value);
-		BOOST_TEST(theoretical_value == theoretical_value, boost::test_tools::tolerance(1e-15));
+		BOOST_TEST(theoretical_value == calculated_value, boost::test_tools::tolerance(1e-15));
 	}
 
     BOOST_AUTO_TEST_CASE(continuous_cap1)
@@ -83,7 +83,7 @@ BOOST_AUTO_TEST_SUITE(utils_boost)
         BOOST_TEST_MESSAGE(" - calculated_value: " << calculated_value);
         BOOST_TEST_MESSAGE(" - known_capitalization: " << theoretical_value);
         BOOST_TEST_MESSAGE(" - diff " << calculated_value-theoretical_value);
-        BOOST_TEST(theoretical_value == theoretical_value, boost::test_tools::tolerance(1e-8));
+        BOOST_TEST(theoretical_value == calculated_value, boost::test_tools::tolerance(1e-8));
     }
 
     BOOST_AUTO_TEST_CASE(fwd_rate1)
@@ -96,14 +96,14 @@ BOOST_AUTO_TEST_SUITE(utils_boost)
         double zero_coupon_partial = 0.03;
         int years_partial = 1;
 
-        double theoretical_value = 122.140275816; // (100*(1.1)^2) rounded to second
+        double theoretical_value = 0.05; // (100*(1.1)^2) rounded to second
 
-        auto calculated_value = continuous_capitalization(amount, annual_rate, number_of_years);
+        auto calculated_value = forward_rate(zero_coupon_total, years_total, zero_coupon_partial, years_partial);
 
         BOOST_TEST_MESSAGE(" - calculated_value: " << calculated_value);
-        BOOST_TEST_MESSAGE(" - known_capitalization: " << capitalized_value);
-        BOOST_TEST_MESSAGE(" - diff " << calculated_value-capitalized_value);
-        BOOST_TEST(capitalized_value == capitalized_value, boost::test_tools::tolerance(1e-8));
+        BOOST_TEST_MESSAGE(" - known_fwd_rate: " << theoretical_value);
+        BOOST_TEST_MESSAGE(" - diff " << calculated_value-theoretical_value);
+        BOOST_TEST(theoretical_value == calculated_value, boost::test_tools::tolerance(1e-15));
     }
 
 BOOST_AUTO_TEST_SUITE_END()
