@@ -29,7 +29,6 @@ class DayCountCalculator {
 		//Metodo para obtener el numero de dias a partir de un par de fechas en strings o por boost::gregorian::date (DD/MM/YYYY)
 		double compute_daycount(const std::string& string_from, const std::string& string_to) const;
 
-
 		//Obtiene el numero de dias que hay en un año
 		int getNDaysYear();
 
