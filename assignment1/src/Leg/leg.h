@@ -3,7 +3,7 @@
 
 #include <string>
 #include <vector>
-#include <DayCountCalculator/DayCountCalculator.h>
+#include "DayCountCalculator/DayCountCalculator.h"
 
 
 class Leg {
@@ -15,6 +15,8 @@ class Leg {
 		DayCountCalculator dayCalculator;
 	
 	public:
+		
+		Leg() = default;
 
 		Leg(double eNotional, double eRate, std::vector<std::string> eVPeriods, DayCountCalculator eDayCalculator) : 
 			notional{eNotional}, rate{eRate}, vPeriods{eVPeriods}, dayCalculator{eDayCalculator} {}
@@ -28,13 +30,20 @@ class Leg {
  
 //Clase que implementa una pata fijado
 class FixedLeg : public Leg {
+	
 	 
 	 	// Constructor (LLamamos al constructor de la superclase)
 		FixedLeg(double eNotional, double eRate, std::vector<std::string> eVPeriods, DayCountCalculator eDayCalculator) : 
 				Leg(eNotional, eRate, eVPeriods, eDayCalculator){}
 
-		//Metodo para calcular el precio en un pata fija
-		double price();
+		
+
+	public:
+				FixedLeg() = default;
+				
+				//Metodo para calcular el precio en un pata fija
+				double price();
+
 };
 
 //Clase que implementa una pata flotante
@@ -45,6 +54,11 @@ class FloatingLeg : public Leg {
 				Leg(eNotional, eRate, eVPeriods, eDayCalculator)
 		{}
 
+		
+		
+	public:
+		FloatingLeg() = default;
+		
 		//Metodo para calcular el precio en un pata fija
 		double price();
 };

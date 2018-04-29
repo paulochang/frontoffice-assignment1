@@ -7,7 +7,10 @@
  * las clases superiores se ocuparan de calcularlo.
  */
 
+
+
 //Clase FixedLeg
+
 double FixedLeg::price() {
 
 	//Obtenemos el numero de dias de un año de la calculadora instanciada

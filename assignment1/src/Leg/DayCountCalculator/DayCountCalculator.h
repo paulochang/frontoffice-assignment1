@@ -12,6 +12,8 @@ class DayCountCalculator {
 		int nDaysYear;
 	public:
 		
+		DayCountCalculator() = default;
+		
 		DayCountCalculator(int eNDaysYear) : nDaysYear{eNDaysYear} {}
 
 		double compute_daycount(const std::string& from, const std::string& to) const;

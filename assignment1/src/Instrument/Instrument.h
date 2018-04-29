@@ -2,24 +2,32 @@
 #define INSTRUMENT_H
 
 #include <string>
-#include <../Leg/leg.h>
+#include "../Leg/leg.h"
 
 struct InstrumentDescription {
 	enum Type {bond, swap};
 	Type type;
 	InstrumentDescription(Type type_):type(type_){} 
-	LegDescription payer;
-	LegDescription receiver;
+	InstrumentDescription(){};
+	FixedLeg payer;
+	FloatingLeg receiver;
 };
 
 class Instrument {
 	
-	private:
-		InstrumentDescription instrumentDescription;
-		
+
 	public:
 
-		double operator()(InstrumentDescription& instrumentDescription) const;
+		InstrumentDescription instrumentDescription;
+
+		Instrument() = default;
+		
+		FixedLeg fixedLeg;
+		FloatingLeg floatingLeg;
+
+		//Instrument operator()(InstrumentDescription instrumentDescription) const;
+		
+		Instrument(InstrumentDescription instrumentDescription){};
 		
 		double price();
 
@@ -28,24 +36,22 @@ class Instrument {
 class Bond : public Instrument {
 	public:
 
-		Bond(InstrumentDescription& instrumentDescription) : Instrument(InstrumentDescription instrumentDescription) {};
+		Bond(InstrumentDescription instrumentDescription) : Instrument(instrumentDescription){
 		
-	private:
+			instrumentDescription = instrumentDescription;
 		
-		Leg fixedLeg();
+		};
+		
+		double price();
 		
 };
 
 class Swap : public Instrument {
 	public:
 
-		Bond(InstrumentDescription& instrumentDescription) : Instrument(InstrumentDescription instrumentDescription) {};
+		Swap(InstrumentDescription instrumentDescription) : Instrument(instrumentDescription) {};
 
-	private:
-
-		Leg fixedLeg();
-		
-		Leg floatingLeg();
+		double price();
 
 };
 
