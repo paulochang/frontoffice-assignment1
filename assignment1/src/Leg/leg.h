@@ -1,4 +1,5 @@
 #include <string>
+#include <utility>
 #include <vector>
 #include "Btime/btime.h"
 /**
@@ -24,7 +25,7 @@ public:
 
     //Constructor
     Leg(double eNotional, double eRate, std::vector<std::string> eVPeriods, DayCountCalculator *eDayCalculator) :
-            notional{eNotional}, rate{eRate}, vPeriods{eVPeriods}, dayCalculator{eDayCalculator} {}
+            notional{eNotional}, rate{eRate}, vPeriods{std::move(eVPeriods)}, dayCalculator{eDayCalculator} {}
 
     //Destructor
     virtual ~Leg();
@@ -39,7 +40,7 @@ class FixedLeg : public Leg {
     // Constructor (LLamamos al constructor de la superclase)
     FixedLeg(double eNotional, double eRate, std::vector<std::string> eVPeriods, DayCountCalculator *eDayCalculator)
             :
-            Leg(eNotional, eRate, eVPeriods, eDayCalculator) {}
+            Leg(eNotional, eRate, std::move(eVPeriods), eDayCalculator) {}
 
     //Metodo para calcular el precio en un pata fija
     double price() override ;
@@ -51,7 +52,7 @@ class FloatingLeg : public Leg {
     // Constructor (LLamamos al constructor de la superclase)
     FloatingLeg(double eNotional, double eRate, std::vector<std::string> eVPeriods,
                 DayCountCalculator *eDayCalculator) :
-            Leg(eNotional, eRate, eVPeriods, eDayCalculator) {}
+            Leg(eNotional, eRate, std::move(eVPeriods), eDayCalculator) {}
 
     //Metodo para calcular el precio en un pata fija
     double price() override;

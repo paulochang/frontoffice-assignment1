@@ -4,18 +4,6 @@
  */
 
 
-//DayCountCalculator - compute_daycount(string_from, string_to)
-double DayCountCalculator::compute_daycount(const std::string &string_from, const std::string &string_to) const {
-    boost::gregorian::date from_date{boost::gregorian::from_string(string_from)};
-    boost::gregorian::date to_date{boost::gregorian::from_string(string_to)};
-    return compute_daycount(from_date, to_date);
-}
-
-int DayCountCalculator::getNDaysYear() {
-    return nDaysYear;
-}
-
-
 //Actual_360 - compute_daycount_boost(bfrom, bto)
 double
 Actual_360::compute_daycount(const boost::gregorian::date &bfrom, const boost::gregorian::date &bto) const {

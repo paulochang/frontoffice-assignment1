@@ -24,14 +24,20 @@ public:
     explicit DayCountCalculator(int eNDaysYear) : nDaysYear{eNDaysYear} {}
 
     //Metodo para obtener el numero de dias a partir de un par de fechas en strings o por boost::gregorian::date (DD/MM/YYYY)
-    double compute_daycount(const std::string &string_from, const std::string &string_to) const;
+    double compute_daycount(const std::string &string_from, const std::string &string_to) const {
+        boost::gregorian::date from_date{boost::gregorian::from_string(string_from)};
+        boost::gregorian::date to_date{boost::gregorian::from_string(string_to)};
+        return compute_daycount(from_date, to_date);
+    }
 
 
     //Metodo para compuatr el numero de dias a partir de objetos boos::gregorian::date
     virtual double compute_daycount(const boost::gregorian::date &bfrom, const boost::gregorian::date &bto) const = 0;
 
     //Obtiene el numero de dias que hay en un año
-    int getNDaysYear();
+    int getNDaysYear() {
+        return nDaysYear;
+    };
 
     //Computa el numero de dias a partir de
     double operator()(const std::string &start_period, const std::string &end_period) const {
@@ -59,7 +65,7 @@ private:
 
     //Metodo auxiliar para el calculo de los dias en 30/360
     double
-    compute_daycount(const short years, const short months, const short days_from, const short days_to) const;
+    compute_daycount(short years, short months, short days_from, short days_to) const;
 
 public:
 

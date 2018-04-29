@@ -1,3 +1,3 @@
 #include "leg.h"
 
-Leg::~Leg(){}
+Leg::~Leg() = default;
