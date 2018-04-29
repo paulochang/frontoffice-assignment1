@@ -1,5 +1,5 @@
 #include "utils.h"
-#include <math.h>
+#include <cmath>
 
 double add(double f, int total)
 {
