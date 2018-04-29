@@ -11,6 +11,7 @@ set(INCLUDE_HOME ${PROJECT_SOURCE_DIR}/src)
 set (CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake-lib)
 # - set boost home
 set(BOOST_ROOT ~/clibraries/boost_1_65_0)
+//set(BOOST_ROOT ~/Desktop/boost/boost_1_63_0)
 
 
 # Print some stuff
