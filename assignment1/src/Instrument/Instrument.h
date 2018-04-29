@@ -1,38 +1,53 @@
 #ifndef INSTRUMENT_H
 #define INSTRUMENT_H
 
+#include <string>
+#include <../Leg/leg.h>
+
+struct InstrumentDescription {
+	enum Type {bond, swap};
+	Type type;
+	InstrumentDescription(Type type_):type(type_){} 
+	LegDescription payer;
+	LegDescription receiver;
+};
 
 class Instrument {
+	
 	private:
-		int nDaysYear;
-	public:
+		InstrumentDescription instrumentDescription;
 		
-		DayCountCalculator(int eNDaysYear) : nDaysYear{eNDaysYear} {}
+	public:
 
-		double compute_daycount(const std::string& from, const std::string& to) const;
-
-		int getNDaysYear();
-
-		double operator()(const std::string& start, const std::string& end_period) const;
+		double operator()(InstrumentDescription& instrumentDescription) const;
+		
+		double price();
 
 };
 
-class Actual_360 : public DayCountCalculator {
+class Bond : public Instrument {
 	public:
 
-		Actual_360() : DayCountCalculator(N_DAYS_ACTUAL_360) {};
+		Bond(InstrumentDescription& instrumentDescription) : Instrument(InstrumentDescription instrumentDescription) {};
+		
+	private:
+		
+		Leg fixedLeg();
 		
 };
 
-class Thirty_360 : public DayCountCalculator {
+class Swap : public Instrument {
 	public:
 
-		Thirty_360() : DayCountCalculator(N_DAYS_THIRTY_360) {}
+		Bond(InstrumentDescription& instrumentDescription) : Instrument(InstrumentDescription instrumentDescription) {};
 
 	private:
 
-		double compute_daycount(const short years, const short months, const short days_from, const short days_to);
+		Leg fixedLeg();
+		
+		Leg floatingLeg();
+
 };
 
 
-#endif 
+#endif
