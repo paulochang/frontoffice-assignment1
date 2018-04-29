@@ -9,5 +9,5 @@
 
 //Clase FixedLeg
 double FloatingLeg::price() {
-	return 0.0;
+    return 0.0;
 }

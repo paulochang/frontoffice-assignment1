@@ -1,6 +1,6 @@
 #include <string>
 #include <vector>
-#include "Leg/Btime/btime.h"
+#include "Btime/btime.h"
 /**
  * Clase que representa una pata de un instrumento financiero.
  * Una pata de un instrumento financiero se considera una serie de peridos en un intervalo de tiempo concreto
@@ -14,47 +14,45 @@
 
 //Clase prinbcipal
 class Leg {
-	protected:
-		double notional;
-		double rate;
-		std::vector<std::string> vPeriods;
-		std::string legType;
-	DayCountCalculator *dayCalculator;
-	public:
+protected:
+    double notional;
+    double rate;
+    std::vector<std::string> vPeriods;
+    std::string legType;
+    DayCountCalculator *dayCalculator;
+public:
 
-	    //Constructor
-		Leg(double eNotional, double eRate, std::vector<std::string> eVPeriods, DayCountCalculator *eDayCalculator) :
-				notional{eNotional}, rate{eRate}, vPeriods{eVPeriods}, dayCalculator{eDayCalculator} {}
+    //Constructor
+    Leg(double eNotional, double eRate, std::vector<std::string> eVPeriods, DayCountCalculator *eDayCalculator) :
+            notional{eNotional}, rate{eRate}, vPeriods{eVPeriods}, dayCalculator{eDayCalculator} {}
 
-		//Destructor
-		virtual ~Leg();
+    //Destructor
+    virtual ~Leg();
 
-		//Metodo abstracto para calcular el precio de una pata
-		virtual double price() = 0;
- };
- 
+    //Metodo abstracto para calcular el precio de una pata
+    virtual double price() = 0;
+};
+
 //Clase que implementa una pata fijado
 class FixedLeg : public Leg {
-	 
-	 	// Constructor (LLamamos al constructor de la superclase)
-		FixedLeg(double eNotional, double eRate, std::vector<std::string> eVPeriods, DayCountCalculator *eDayCalculator)
-				:
-				Leg(eNotional, eRate, eVPeriods, eDayCalculator)
-		{}
 
-		//Metodo para calcular el precio en un pata fija
-		double price();
+    // Constructor (LLamamos al constructor de la superclase)
+    FixedLeg(double eNotional, double eRate, std::vector<std::string> eVPeriods, DayCountCalculator *eDayCalculator)
+            :
+            Leg(eNotional, eRate, eVPeriods, eDayCalculator) {}
+
+    //Metodo para calcular el precio en un pata fija
+    double price() override ;
 };
 
 //Clase que implementa una pata flotante
 class FloatingLeg : public Leg {
-	 
-	 	// Constructor (LLamamos al constructor de la superclase)
-		FloatingLeg(double eNotional, double eRate, std::vector<std::string> eVPeriods,
-					DayCountCalculator *eDayCalculator) :
-				Leg(eNotional, eRate, eVPeriods, eDayCalculator)
-		{}
 
-		//Metodo para calcular el precio en un pata fija
-		double price();
+    // Constructor (LLamamos al constructor de la superclase)
+    FloatingLeg(double eNotional, double eRate, std::vector<std::string> eVPeriods,
+                DayCountCalculator *eDayCalculator) :
+            Leg(eNotional, eRate, eVPeriods, eDayCalculator) {}
+
+    //Metodo para calcular el precio en un pata fija
+    double price() override;
 };

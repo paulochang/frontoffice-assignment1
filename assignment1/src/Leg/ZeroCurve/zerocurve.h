@@ -5,6 +5,7 @@
 #include <map>
 #include <memory>
 #include <utility>
+
 /**
  * Clase que implemenbta una curva de intereses a cupones cero.
  * En este caso, para dart sencillez a la practica solo usaremos unos valores estaticos
@@ -12,27 +13,29 @@
  */
 
 class ZeroRateCurve {
-	private:
-		
-		//Mapa que contiene los tipos de interes agrupados por fecha
-		std::map<std::string, double> mapZeroRates{};
+private:
 
-		//Instancia singleton
-		static std::unique_ptr<ZeroRateCurve> sZRCurve;
-		
-		//Constructor privado
-		ZeroRateCurve() {
-		    loadZCMap();
-		}
+    //Mapa que contiene los tipos de interes agrupados por fecha
+    std::map<std::string, double> mapZeroRates{};
 
-		//Carga el mapa de valores
-		void loadZCMap();
-	public:
+    //Instancia singleton
+    static std::unique_ptr<ZeroRateCurve> sZRCurve;
 
-		//Obtiene la instancia singleton
-		static std::unique_ptr<ZeroRateCurve> getZRCurve();
+    //Constructor privado
+    ZeroRateCurve() {
+        loadZCMap();
+    }
 
-		//Obtiene un tipo de interes a partir de la fecha
-		double getRateFromDateString(std::string& date);
+    //Carga el mapa de valores
+    void loadZCMap();
+
+public:
+
+    //Obtiene la instancia singleton
+    static std::unique_ptr<ZeroRateCurve> getZRCurve();
+
+    //Obtiene un tipo de interes a partir de la fecha
+    double getRateFromDateString(std::string &date);
 };
+
 #endif
