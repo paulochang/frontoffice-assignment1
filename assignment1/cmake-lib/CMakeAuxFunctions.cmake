@@ -14,7 +14,9 @@ function (create_library)
         message(FATAL_ERROR "You must provide a name")
     endif(NOT PARSED_ARGS_NAME)
 
-    # find boost libraries and add includes
+	find_package(Boost COMPONENTS date_time REQUIRED)
+
+	# find boost libraries and add includes
 	if(Boost_FOUND)
   		include_directories(${Boost_INCLUDE_DIRS})
         LINK_DIRECTORIES(${Boost_LIBRARY_DIRS})
@@ -26,6 +28,8 @@ function (create_library)
     # include all CXX_FILE_EXTENSIONS files placed in current folder inside the current folder
 	file(GLOB SRC_FILES  ${CXX_FILE_EXTENSIONS})
 	add_library(${PARSED_ARGS_NAME} SHARED ${SRC_FILES} )
+
+	target_link_libraries(${PARSED_ARGS_NAME} Boost::date_time)
 
     # add all PARSED_ARGS_DEPS as libraries to link with
     foreach(lib_dep ${PARSED_ARGS_DEPS})
