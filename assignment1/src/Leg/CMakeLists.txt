@@ -1,2 +1,2 @@
-add_subdirectory(DayCountCalculator)
+add_subdirectory(ZeroCurve)
 create_library(NAME leg)

@@ -1,4 +1,4 @@
-#include "Leg.h"
+#include "leg.h"
 #include <cmath>
 /**
  * Implementacion de la clase 'FloatingLeg' que representa los pagos flotantes
@@ -9,5 +9,5 @@
 
 //Clase FixedLeg
 double FloatingLeg::price() {
-	return 0.0;
+    return 0.0;
 }
