@@ -3,44 +3,35 @@
 
 #include <string>
 #include "../Leg/leg.h"
+#include "../Leg/ZeroCurve/zerocurve.h"
 
-struct InstrumentDescription {
-	enum Type {bond, swap};
-	Type type;
-	InstrumentDescription(Type type_):type(type_){} 
-	InstrumentDescription(){};
-	FixedLeg payer;
-	FloatingLeg receiver;
-};
 
 class Instrument {
-	
 
 	public:
 
-		InstrumentDescription instrumentDescription;
-
-		Instrument() = default;
-		
-		FixedLeg fixedLeg;
-		FloatingLeg floatingLeg;
-
-		//Instrument operator()(InstrumentDescription instrumentDescription) const;
-		
-		Instrument(InstrumentDescription instrumentDescription){};
+		ZeroRateCurve zeroRateCurve;
+		FixedLeg receiver;
+		FloatingLeg payer;
 		
 		double price();
+		
+		Instrument(Leg receiver, Leg payer, ZeroRateCurve zerocouponCurve){
+			
+			//this->receiver = std::move(receiver);
+			//this->payer = std::move(payer);
+			//this->zeroRateCurve = std::move(zerocouponCurve);
+			
+			receiver = receiver;
+			payer = payer;
+			zeroRateCurve = zerocouponCurve;
+
+		}
 
 };
 
 class Bond : public Instrument {
 	public:
-
-		Bond(InstrumentDescription instrumentDescription) : Instrument(instrumentDescription){
-		
-			instrumentDescription = instrumentDescription;
-		
-		};
 		
 		double price();
 		
@@ -49,11 +40,8 @@ class Bond : public Instrument {
 class Swap : public Instrument {
 	public:
 
-		Swap(InstrumentDescription instrumentDescription) : Instrument(instrumentDescription) {};
-
 		double price();
 
 };
-
 
 #endif
