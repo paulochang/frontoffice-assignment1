@@ -16,10 +16,10 @@ InstrumentDescription::Type SwapBuilder::getId () {
 	return InstrumentDescription::Type::swap; 
 }
 
-std::unique_ptr<IPricer> SwapBuilder::build (const InstrumentDescription& instrument) {
+std::unique_ptr<Instrument> SwapBuilder::build (const InstrumentDescription& instrument) {
 	
-	std::unique_ptr<IPricer> swap;
-  swap = std::make_unique<Swap>(receiver, payer, zerocouponCurve);
+	std::unique_ptr<Instrument> swap;
+  swap = std::make_unique<swap>(receiver, payer, zerocouponCurve);
 
 	return swap;
 

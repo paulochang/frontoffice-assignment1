@@ -2,13 +2,14 @@
 #define FACTORY_H
 
 #include "../Leg/leg.h"
+#include <Instrument.h>
 
 struct InstrumentDescription {
 	enum Type {bond, swap};
 	Type type;
 	InstrumentDescription(Type type_):type(type_){} 
-	LegDescription payer;
-	LegDescription receiver;
+	FloatingLeg payer;
+	FixedLeg receiver;
 };
 
 
@@ -16,11 +17,11 @@ class Factory {
 
 	public:
 
-		std::unique_ptr<IPricer> operator() (const InstrumentDescription& description) const;
+		std::unique_ptr<Instrument> operator() (const InstrumentDescription& description) const;
 		
 		virtual ~Factory();
 		
-		typedef std::function<std::unique_ptr<IPricer>(const InstrumentDescription&)> Builder; 
+		typedef std::function<std::unique_ptr<Instrument>(const InstrumentDescription&)> Builder; 
 		
 		void register_constructor(const InstrumentDescription::Type& id, const Builder& builder);
 		
@@ -42,7 +43,7 @@ class Factory {
 };
 
 
-std::unique_ptr<IPricer> Factory::operator()(const InstrumentDescription& description) c {
+std::unique_ptr<Instrument> Factory::operator()(const InstrumentDescription& description) c {
 	
 	auto builder = buildersMap_.find(getBuilderId(description));
 	
