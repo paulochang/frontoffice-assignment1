@@ -3,42 +3,42 @@
 
 #include <string>
 
- 
+
 const int N_DAYS_ACTUAL_360 = 360;
 const int N_DAYS_THIRTY_360 = 360;
 
 class DayCountCalculator {
-	private:
-		int nDaysYear;
-	public:
-		
-		DayCountCalculator() = default;
-		
-		DayCountCalculator(int eNDaysYear) : nDaysYear{eNDaysYear} {}
+private:
+    int nDaysYear;
+public:
 
-		double compute_daycount(const std::string& from, const std::string& to) const;
+    DayCountCalculator() = default;
 
-		int getNDaysYear();
+    DayCountCalculator(int eNDaysYear) : nDaysYear{eNDaysYear} {}
 
-		double operator()(const std::string& start, const std::string& end_period) const;
+    double compute_daycount(const std::string &from, const std::string &to) const;
+
+    int getNDaysYear();
+
+    double operator()(const std::string &start, const std::string &end_period) const;
 
 };
 
 class Actual_360 : public DayCountCalculator {
-	public:
+public:
 
-		Actual_360() : DayCountCalculator(N_DAYS_ACTUAL_360) {};
-		
+    Actual_360() : DayCountCalculator(N_DAYS_ACTUAL_360) {};
+
 };
 
 class Thirty_360 : public DayCountCalculator {
-	public:
+public:
 
-		Thirty_360() : DayCountCalculator(N_DAYS_THIRTY_360) {}
+    Thirty_360() : DayCountCalculator(N_DAYS_THIRTY_360) {}
 
-	private:
+private:
 
-		double compute_daycount(const short years, const short months, const short days_from, const short days_to);
+    double compute_daycount(const short years, const short months, const short days_from, const short days_to);
 };
 
 #endif

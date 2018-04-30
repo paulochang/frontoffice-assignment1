@@ -4,7 +4,7 @@
  */
 
 //Instancia singleton
-std::unique_ptr<ZeroRateCurve> ZeroRateCurve::sZRCurve = nullptr;
+//std::unique_ptr<ZeroRateCurve> ZeroRateCurve::sZRCurve = nullptr;
 
 //ZeroRateCurve - ZeroRateCurve
 void ZeroRateCurve::loadZCMap() {
@@ -15,12 +15,12 @@ void ZeroRateCurve::loadZCMap() {
 }
 
 //getZRCurve - ZeroRateCurve (Singleton)
-std::unique_ptr<ZeroRateCurve> ZeroRateCurve::getZRCurve() {
+/*std::unique_ptr<ZeroRateCurve> ZeroRateCurve::getZRCurve() {
     if (sZRCurve == nullptr) {
         sZRCurve = std::unique_ptr<ZeroRateCurve>(new ZeroRateCurve());
     }
     return std::move(sZRCurve);
-}
+}*/
 
 //getRateFromDateString - ZeroRateCurve
 double ZeroRateCurve::getRateFromDateString(std::string &date) {

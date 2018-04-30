@@ -16,17 +16,17 @@
  * fecha se corresponde a la fecha de acuerdo del instrumento (bono o swap) y el resto son las fechas correspondientes al pago de flujos
  */
 
+
 //Clase prinbcipal
 class Leg {
 protected:
     double notional;
     double rate;
     std::vector<std::string> vPeriods;
-    std::string legType;
     DayCountCalculator *dayCalculator;
 public:
 
-		Leg() = default;
+    Leg() = default;
 
     //Constructor
     Leg(double eNotional, double eRate, std::vector<std::string> eVPeriods, DayCountCalculator *eDayCalculator) :
@@ -41,9 +41,9 @@ public:
 
 //Clase que implementa una pata fijado
 class FixedLeg : public Leg {
-	
+
 public:
-		FixedLeg() = default;
+    FixedLeg() = default;
 
     // Constructor (LLamamos al constructor de la superclase)
     FixedLeg(double eNotional, double eRate, std::vector<std::string> eVPeriods, DayCountCalculator *eDayCalculator)
@@ -51,14 +51,14 @@ public:
             Leg(eNotional, eRate, std::move(eVPeriods), eDayCalculator) {}
 
     //Metodo para calcular el precio en un pata fija
-    double price() override ;
+    double price() override;
 };
 
 //Clase que implementa una pata flotante
 class FloatingLeg : public Leg {
 
 public:
-		FloatingLeg() = default;
+    FloatingLeg() = default;
 
     // Constructor (LLamamos al constructor de la superclase)
     FloatingLeg(double eNotional, double eRate, std::vector<std::string> eVPeriods,

@@ -8,40 +8,35 @@
 
 class Instrument {
 
-	public:
+public:
+    virtual double price() const = 0;
 
-		ZeroRateCurve zeroRateCurve;
-		FixedLeg receiver;
-		FloatingLeg payer;
-		
-		double price();
-		
-		Instrument(Leg receiver, Leg payer, ZeroRateCurve zerocouponCurve){
-			
-			//this->receiver = std::move(receiver);
-			//this->payer = std::move(payer);
-			//this->zeroRateCurve = std::move(zerocouponCurve);
-			
-			receiver = receiver;
-			payer = payer;
-			zeroRateCurve = zerocouponCurve;
+    Leg *theReceiver;
+    ZeroRateCurve theZeroRateCurve;
 
-		}
+    Instrument(Leg *receiver, ZeroRateCurve zeroRateCurve) : theReceiver{receiver}, theZeroRateCurve{zeroRateCurve} {}
 
 };
 
 class Bond : public Instrument {
-	public:
-		
-		double price();
-		
+public:
+
+    double price();
+
+    Bond(FixedLeg *Receiver, ZeroRateCurve zeroRateCurve) : Instrument(Receiver, zeroRateCurve) {}
+
 };
 
 class Swap : public Instrument {
-	public:
+public:
 
-		double price();
+    Leg *thePayer;
 
+    double price();
+
+    Swap(Leg *Receiver, Leg *Payer, ZeroRateCurve zeroRateCurve) : Instrument(Receiver, zeroRateCurve) {
+        thePayer = Payer;
+    }
 };
 
 #endif

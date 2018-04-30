@@ -54,8 +54,7 @@ class Actual_360 : public DayCountCalculator {
 public:
 
     //Definicion del metodo privado para computar el numero de dias a partir de un objeto boos::gregorian::date
-    double
-    compute_daycount(const boost::gregorian::date &bfrom, const boost::gregorian::date &bto) const override;
+    double compute_daycount(const boost::gregorian::date &bfrom, const boost::gregorian::date &bto) const override;
 
     //Constructor.
     Actual_360() : DayCountCalculator(N_DAYS_ACTUAL_360) {}

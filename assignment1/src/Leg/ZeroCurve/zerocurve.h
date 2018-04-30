@@ -19,22 +19,25 @@ private:
     std::map<std::string, double> mapZeroRates{};
 
     //Instancia singleton
-    static std::unique_ptr<ZeroRateCurve> sZRCurve;
+    //static std::unique_ptr<ZeroRateCurve> sZRCurve;
 
     //Constructor privado
-    
+
 
     //Carga el mapa de valores
     void loadZCMap();
 
 public:
-	
-	  ZeroRateCurve() {
-	      loadZCMap();
-	  }
 
+    ZeroRateCurve() {
+        loadZCMap();
+    }
+
+    ZeroRateCurve(std::map<std::string, double> ratesMap) {
+        mapZeroRates = ratesMap;
+    }
     //Obtiene la instancia singleton
-    static std::unique_ptr<ZeroRateCurve> getZRCurve();
+    //static std::unique_ptr<ZeroRateCurve> getZRCurve();
 
     //Obtiene un tipo de interes a partir de la fecha
     double getRateFromDateString(std::string &date);

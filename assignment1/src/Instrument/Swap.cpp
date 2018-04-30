@@ -1,9 +1,8 @@
 #include "Instrument.h"
 
 
-	
-	double Swap::price(){
-		
-		return receiver.price() - payer.price();
-		
-	}
+double Swap::price() {
+
+    return this->theReceiver->price() - this->thePayer->price();
+
+}
