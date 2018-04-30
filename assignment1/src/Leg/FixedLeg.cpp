@@ -1,8 +1,7 @@
 #include "leg.h"
-#include <cmath>
 /**
  * Implementacion de la clase 'FixedLeg' que representa los pagos fijos
- * Para calcular los flujos de caja se necesitan saber los periodos de pago, para calcular las fracciones de anyo
+ * Para calcular los flujos de caja se necesitan saber los periodos de pago, para calcular las fracciones de año
  * El interes esta acordado previamente y se supone que es en la duracion de los periodos de pago,
  * las clases superiores se ocuparan de calcularlo.
  */
