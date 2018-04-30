@@ -2,6 +2,7 @@
 #define INSTRUMENT_H
 
 #include <string>
+#include <utility>
 #include "../Leg/leg.h"
 #include "../Leg/ZeroCurve/zerocurve.h"
 
@@ -14,7 +15,8 @@ public:
     Leg *theReceiver;
     ZeroRateCurve theZeroRateCurve;
 
-    Instrument(Leg *receiver, ZeroRateCurve zeroRateCurve) : theReceiver{receiver}, theZeroRateCurve{zeroRateCurve} {}
+    Instrument(Leg *receiver, ZeroRateCurve zeroRateCurve) : theReceiver{receiver}, theZeroRateCurve{
+            std::move(zeroRateCurve)} {}
 
 };
 
@@ -34,7 +36,7 @@ public:
 
     double price();
 
-    Swap(Leg *Receiver, Leg *Payer, ZeroRateCurve zeroRateCurve) : Instrument(Receiver, zeroRateCurve) {
+    Swap(Leg *Receiver, Leg *Payer, ZeroRateCurve zeroRateCurve) : Instrument(Receiver, std::move(zeroRateCurve)) {
         thePayer = Payer;
     }
 };

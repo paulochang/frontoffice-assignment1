@@ -33,8 +33,8 @@ public:
         loadZCMap();
     }
 
-    ZeroRateCurve(std::map<std::string, double> ratesMap) {
-        mapZeroRates = ratesMap;
+    explicit ZeroRateCurve(std::map<std::string, double> ratesMap) {
+        mapZeroRates = std::move(ratesMap);
     }
     //Obtiene la instancia singleton
     //static std::unique_ptr<ZeroRateCurve> getZRCurve();
