@@ -22,14 +22,16 @@ private:
     static std::unique_ptr<ZeroRateCurve> sZRCurve;
 
     //Constructor privado
-    ZeroRateCurve() {
-        loadZCMap();
-    }
+    
 
     //Carga el mapa de valores
     void loadZCMap();
 
 public:
+	
+	  ZeroRateCurve() {
+	      loadZCMap();
+	  }
 
     //Obtiene la instancia singleton
     static std::unique_ptr<ZeroRateCurve> getZRCurve();

@@ -23,6 +23,8 @@ protected:
     DayCountCalculator *dayCalculator;
 public:
 
+		Leg() = default;
+
     //Constructor
     Leg(double eNotional, double eRate, std::vector<std::string> eVPeriods, DayCountCalculator *eDayCalculator) :
             notional{eNotional}, rate{eRate}, vPeriods{std::move(eVPeriods)}, dayCalculator{eDayCalculator} {}
@@ -36,6 +38,9 @@ public:
 
 //Clase que implementa una pata fijado
 class FixedLeg : public Leg {
+	
+public:
+		FixedLeg() = default;
 
     // Constructor (LLamamos al constructor de la superclase)
     FixedLeg(double eNotional, double eRate, std::vector<std::string> eVPeriods, DayCountCalculator *eDayCalculator)
@@ -48,6 +53,9 @@ class FixedLeg : public Leg {
 
 //Clase que implementa una pata flotante
 class FloatingLeg : public Leg {
+
+public:
+		FloatingLeg() = default;
 
     // Constructor (LLamamos al constructor de la superclase)
     FloatingLeg(double eNotional, double eRate, std::vector<std::string> eVPeriods,
