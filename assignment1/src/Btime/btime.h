@@ -1,3 +1,6 @@
+#ifndef BTIME_H
+#define BTIME_H
+
 #include <boost/date_time/gregorian/gregorian.hpp>
 #include <string>
 /**
@@ -77,3 +80,5 @@ public:
     //Constructor.
     Thirty_360() : DayCountCalculator(N_DAYS_THIRTY_360) {}
 };
+
+#endif

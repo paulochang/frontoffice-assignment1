@@ -1,3 +1,6 @@
+#ifndef LEG_H
+#define LEG_H
+
 #include <string>
 #include <utility>
 #include <vector>
@@ -65,3 +68,5 @@ public:
     //Metodo para calcular el precio en un pata fija
     double price() override;
 };
+
+#endif
