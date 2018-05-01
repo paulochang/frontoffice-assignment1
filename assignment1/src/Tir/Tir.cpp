@@ -14,6 +14,7 @@
 * tPeriods = no. de años que dura un Bono_TIR       2... 4 pagos
 * mPeriod = periodo principal                       3.. 
 */
+/*
  double Bono_TIR::operator()(const double notional, const std::vector<double> &aCashFlows, const int sPeriods,
     const double tPPeriods, const int mPeriod) {
 
@@ -23,6 +24,7 @@
   * Calculamos el numero de subperiodos totales
   * Los periodos deben ser exactos, en caso contrario se emite error
   */
+/*
   if(std::fmod(tPPeriods, pIncrement) != 0){
   std::cerr << "El numero de periodos debe ser proporcional al periodo total del bono: " << 
     tPPeriods << '\n';
@@ -60,3 +62,4 @@
     }
  return actIRate;
 }
+*/
