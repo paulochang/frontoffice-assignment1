@@ -38,13 +38,17 @@ public:
     virtual double compute_daycount(const boost::gregorian::date &bfrom, const boost::gregorian::date &bto) const = 0;
 
     //Obtiene el numero de dias que hay en un año
-    int getNDaysYear() {
+    int getNDaysYear() const {
         return nDaysYear;
     };
 
     //Computa el numero de dias a partir de
-    double operator()(const std::string &start_period, const std::string &end_period) const {
-        return compute_daycount(start_period, end_period);
+    double getDayRatio(const std::string &start_period, const std::string &end_period) const {
+        return compute_daycount(start_period, end_period)/getNDaysYear();
+    }
+
+    double getDayRatio(const boost::gregorian::date &start_period, const boost::gregorian::date &end_period) const {
+        return compute_daycount(start_period, end_period)/getNDaysYear();
     }
 };
 
@@ -53,18 +57,16 @@ class Actual_360 : public DayCountCalculator {
 
 public:
 
+    //Constructor.
+    Actual_360();
     //Definicion del metodo privado para computar el numero de dias a partir de un objeto boos::gregorian::date
     double compute_daycount(const boost::gregorian::date &bfrom, const boost::gregorian::date &bto) const override;
 
-    //Constructor.
-    Actual_360() : DayCountCalculator(N_DAYS_ACTUAL_360) {}
 };
 
 //Clases hija Actual/360
 class Thirty_360 : public DayCountCalculator {
 private:
-
-
     //Metodo auxiliar para el calculo de los dias en 30/360
     double
     compute_daycount(short years, short months, short days_from, short days_to) const;
@@ -73,11 +75,10 @@ public:
 
 
     //Definicion del metodo privado para computar el numero de dias a partir de un objeto boos::gregorian::date
-    double
-    compute_daycount(const boost::gregorian::date &bfrom, const boost::gregorian::date &bto) const override;
+    double compute_daycount(const boost::gregorian::date &bfrom, const boost::gregorian::date &bto) const override;
 
     //Constructor.
-    Thirty_360() : DayCountCalculator(N_DAYS_THIRTY_360) {}
+    Thirty_360();
 };
 
 #endif

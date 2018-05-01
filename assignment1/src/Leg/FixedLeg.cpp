@@ -1,4 +1,4 @@
-#include "leg.h"
+#include "FixedLeg.h"
 /**
  * Implementacion de la clase 'FixedLeg' que representa los pagos fijos
  * Para calcular los flujos de caja se necesitan saber los periodos de pago, para calcular las fracciones de año
@@ -6,35 +6,29 @@
  * las clases superiores se ocuparan de calcularlo.
  */
 
+
+std::vector<double> FixedLeg::getLegCashFlows(std::vector<double> dayCountFractionVector){
+    std::vector<double> legCashFlows{};
+    for (auto currentFraction : dayCountFractionVector)
+        legCashFlows.emplace_back(m_rate * currentFraction * m_notional);
+    return legCashFlows;
+}
+
 //Clase FixedLeg
 double FixedLeg::price() {
 
-    //Obtenemos el numero de dias de un año de la calculadora instanciada
-    int nDaysYear = dayCalculator->getNDaysYear();
+    //Generate day count fraction vector
+    std::vector<double> dayCountFractionVector{getDayCountFractionVector()};
 
-    //Obtenmos el numero de dias total que dura la inversion
-    double nDaysInvest = dayCalculator->compute_daycount(vPeriods.front(), vPeriods.back());
+    //Calculate the legCashFlows
+    std::vector<double> legCashFlows{getLegCashFlows(dayCountFractionVector)};
 
-    //Calculamos las dcfs (Day count fraction)
-    unsigned int i;
-    std::vector<double> dcfs{};
-    for (i = 1; i < vPeriods.size(); i++) {
-        double dcf = dayCalculator->compute_daycount(vPeriods.at(i - 1), vPeriods.at(i)) / (double) nDaysYear;
-        dcfs.push_back(dcf);
-    }
-
-    //Calculamos los flujos de caja
-    std::vector<double> aCashFlows{};
-    for (i = 0; i < dcfs.size(); i++) {
-        dcfs.push_back(rate * dcfs.at(i) * notional);
-    }
-
-    //Calculamos la valoracion de la pata fija
+    /*//Calculamos la valoracion de la pata fija
     double res = 0.0;
     double rActInc = 0.0;
-    for (i = 1; i < vPeriods.size(); i++) {
-        rActInc += dayCalculator->compute_daycount(vPeriods.at(i - 1), vPeriods.at(i)) / nDaysInvest;
-        res += aCashFlows.at(i - 1) * std::exp(-(rate * rActInc));
-    }
-    return res;
+    for (int i = 1; i < m_payingDates.size(); i++) {
+        rActInc += dayCountFractionVector.at(i-1);
+        res += legCashFlows.at(i - 1) * std::exp(-(m_rate * rActInc));
+    }*/
+    return 0.0;
 }

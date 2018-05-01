@@ -1,0 +1,1 @@
+boost_test_project(NAME test_leg DEPS leg btime)

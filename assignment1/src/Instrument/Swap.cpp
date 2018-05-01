@@ -1,4 +1,4 @@
-#include "Instrument.h"
+#include "Swap.h"
 
 
 double Swap::price() {

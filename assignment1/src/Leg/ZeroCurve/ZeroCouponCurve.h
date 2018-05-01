@@ -5,6 +5,7 @@
 #include <map>
 #include <memory>
 #include <utility>
+#include <boost/date_time/gregorian/gregorian.hpp>
 
 /**
  * Clase que implemenbta una curva de intereses a cupones cero.
@@ -12,35 +13,31 @@
  * que aparecen en el ejemplo del tema2.
  */
 
-class ZeroRateCurve {
+class ZeroCouponCurve {
 private:
 
     //Mapa que contiene los tipos de interes agrupados por fecha
-    std::map<std::string, double> mapZeroRates{};
-
-    //Instancia singleton
-    //static std::unique_ptr<ZeroRateCurve> sZRCurve;
-
-    //Constructor privado
-
+    std::map<boost::gregorian::date, double> mapZeroRates{};
 
     //Carga el mapa de valores
-    void loadZCMap();
+    void loadDefaultZCMap();
 
 public:
 
-    ZeroRateCurve() {
-        loadZCMap();
+    ZeroCouponCurve() {
+        loadDefaultZCMap();
     }
 
-    explicit ZeroRateCurve(std::map<std::string, double> ratesMap) {
+    explicit ZeroCouponCurve(std::map<boost::gregorian::date, double> ratesMap) {
         mapZeroRates = std::move(ratesMap);
     }
     //Obtiene la instancia singleton
-    //static std::unique_ptr<ZeroRateCurve> getZRCurve();
+    //static std::unique_ptr<ZeroCouponCurve> getZRCurve();
 
     //Obtiene un tipo de interes a partir de la fecha
-    double getRateFromDateString(std::string &date);
+    double getRateFromDateString(std::string &date) const;
+
+    double getRateFromDateString(boost::gregorian::date &date) const;
 };
 
 #endif

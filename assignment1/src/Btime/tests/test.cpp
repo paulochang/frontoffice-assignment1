@@ -1,7 +1,7 @@
 #define BOOST_TEST_MODULE test_btime
 
 #include <boost/test/unit_test.hpp>
-#include <Btime/btime.h>
+#include "Btime/DayCountCalculator.h"
 
 BOOST_AUTO_TEST_SUITE(btime_test_suite)
 

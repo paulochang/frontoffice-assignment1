@@ -3,8 +3,8 @@
 
 #include <string>
 #include <utility>
-#include "../Leg/leg.h"
-#include "../Leg/ZeroCurve/zerocurve.h"
+#include "Leg/Leg.h"
+#include "Leg/ZeroCurve/ZeroCouponCurve.h"
 
 
 class Instrument {
@@ -13,32 +13,10 @@ public:
     virtual double price() const = 0;
 
     Leg *theReceiver;
-    ZeroRateCurve theZeroRateCurve;
+    ZeroCouponCurve theZeroRateCurve;
 
-    Instrument(Leg *receiver, ZeroRateCurve zeroRateCurve) : theReceiver{receiver}, theZeroRateCurve{
+    Instrument(Leg *receiver, ZeroCouponCurve zeroRateCurve) : theReceiver{receiver}, theZeroRateCurve{
             std::move(zeroRateCurve)} {}
 
 };
-
-class Bond : public Instrument {
-public:
-
-    double price();
-
-    Bond(FixedLeg *Receiver, ZeroRateCurve zeroRateCurve) : Instrument(Receiver, zeroRateCurve) {}
-
-};
-
-class Swap : public Instrument {
-public:
-
-    Leg *thePayer;
-
-    double price();
-
-    Swap(Leg *Receiver, Leg *Payer, ZeroRateCurve zeroRateCurve) : Instrument(Receiver, std::move(zeroRateCurve)) {
-        thePayer = Payer;
-    }
-};
-
 #endif

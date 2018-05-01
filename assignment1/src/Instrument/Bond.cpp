@@ -1,4 +1,4 @@
-#include "Instrument.h"
+#include "Bond.h"
 
 
 double Bond::price() {
