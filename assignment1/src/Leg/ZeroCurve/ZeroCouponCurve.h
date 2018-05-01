@@ -16,8 +16,9 @@
 class ZeroCouponCurve {
 private:
 
+    boost::gregorian::date m_startDate;
     //Mapa que contiene los tipos de interes agrupados por fecha
-    std::map<boost::gregorian::date, double> mapZeroRates{};
+    std::map<boost::gregorian::date, double> m_mapZeroRates{};
 
     //Carga el mapa de valores
     void loadDefaultZCMap();
@@ -29,15 +30,18 @@ public:
     }
 
     explicit ZeroCouponCurve(std::map<boost::gregorian::date, double> ratesMap) {
-        mapZeroRates = std::move(ratesMap);
+        m_mapZeroRates = std::move(ratesMap);
+
     }
     //Obtiene la instancia singleton
     //static std::unique_ptr<ZeroCouponCurve> getZRCurve();
 
-    //Obtiene un tipo de interes a partir de la fecha
+    //Obtiene un tipo de interes a partir de la fech
+
+    double getRateFromDateString(boost::gregorian::date date) const;
+
     double getRateFromDateString(std::string &date) const;
 
-    double getRateFromDateString(boost::gregorian::date &date) const;
 };
 
 #endif

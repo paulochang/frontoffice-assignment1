@@ -47,3 +47,11 @@ double forward_rate(double zero_coupon_total, double years_total, double zero_co
     double diff_periods = years_total - years_partial;
     return diff_performance / diff_periods;
 }
+
+double annual_to_continuous_rate(int periods_per_year, double annual_rate) {
+    return periods_per_year * log(1 + annual_rate / periods_per_year);
+}
+
+double continuous_to_annual_rate(int periods_per_year, double continuous_rate) {
+    return periods_per_year * (exp(continuous_rate / periods_per_year) - 1);
+}

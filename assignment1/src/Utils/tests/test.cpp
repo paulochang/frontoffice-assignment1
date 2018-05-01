@@ -101,4 +101,35 @@ BOOST_AUTO_TEST_SUITE(utils_boost)
         BOOST_TEST(theoretical_value == calculated_value, boost::test_tools::tolerance(1e-15));
     }
 
+    BOOST_AUTO_TEST_CASE(annual_to_cont1) {
+            BOOST_TEST_MESSAGE("using tolerances within checks.");
+
+            double annual_rate = 0.12;
+
+            double theoretical_value = 0.1133286853; // ln(1.12)
+
+            auto calculated_value = annual_to_continuous_rate(1, annual_rate);
+
+            BOOST_TEST_MESSAGE(" - calculated_value: " << calculated_value);
+            BOOST_TEST_MESSAGE(" - known_fwd_rate: " << theoretical_value);
+            BOOST_TEST_MESSAGE(" - diff " << calculated_value - theoretical_value);
+            BOOST_TEST(theoretical_value == calculated_value, boost::test_tools::tolerance(1e-10));
+    }
+
+    BOOST_AUTO_TEST_CASE(cont_to_annual) {
+        BOOST_TEST_MESSAGE("using tolerances within checks.");
+
+        double continuous_rate = 0.11332868531; //(e^0.1)-1
+
+        double theoretical_value = 0.12; // (e^0.1)-1
+
+        auto calculated_value = continuous_to_annual_rate(1, continuous_rate);
+
+        BOOST_TEST_MESSAGE(" - calculated_value: " << calculated_value);
+        BOOST_TEST_MESSAGE(" - known_fwd_rate: " << theoretical_value);
+        BOOST_TEST_MESSAGE(" - diff " << calculated_value - theoretical_value);
+        BOOST_TEST(theoretical_value == calculated_value, boost::test_tools::tolerance(1e-9));
+    }
+
+
 BOOST_AUTO_TEST_SUITE_END()

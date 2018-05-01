@@ -7,7 +7,7 @@
  * las clases superiores se ocuparan de calcularlo.
  */
 
-std::vector<double> FloatingLeg::getLegCashFlows(std::vector<double> dayCountFractionVector){
+std::vector<double> FloatingLeg::getLegCashFlows(std::vector<double> dayCountFractionVector) {
     std::vector<double> legCashFlows{};
     for (auto currentFraction : dayCountFractionVector)
         legCashFlows.emplace_back(m_rate * currentFraction * m_notional);
@@ -21,6 +21,7 @@ double FloatingLeg::price() {
 
     //Calculate the legCashFlows
     std::vector<double> legCashFlows{getLegCashFlows(dayCountFractionVector)};
+
 
     /*//Calculamos la valoracion de la pata fija
     double res = 0.0;
