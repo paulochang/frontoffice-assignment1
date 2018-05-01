@@ -5,17 +5,21 @@
 #ifndef SQF_FLOATINGLEG_H
 #define SQF_FLOATINGLEG_H
 
+#include <Leg/ZeroCurve/ZeroCouponCurve.h>
 #include "Leg.h"
 
 //Clase que implementa una pata flotante
 class FloatingLeg : public Leg {
 
+    ZeroCouponCurve m_index;
 public:
 
     // Constructor (LLamamos al constructor de la superclase)
     FloatingLeg(double notional, double rates, std::vector<boost::gregorian::date> referenceDates,
-                DayCountCalculator &dayCalculator) :
-            Leg(notional, rates, std::move(referenceDates), dayCalculator) {}
+                DayCountCalculator &dayCalculator, ZeroCouponCurve index) :
+            Leg(notional, rates, std::move(referenceDates), dayCalculator) {
+        m_index = index;
+    }
 
     //Metodo para calcular el precio en un pata fija
     double price() override;
