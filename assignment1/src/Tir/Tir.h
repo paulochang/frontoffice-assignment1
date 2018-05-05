@@ -6,8 +6,8 @@
  *  -Array que contiene los valores de los cupones en el periodo o subperiodos concretos.
  *  La ultima psoicion se corresponde con el cupon final (Nominal + CF)
  *  -Numero de subperiodos que consta el periodo principal (si es 0 se toma el perioso principal)
- *  -Numero de`periodos totales que consta el bono (normalmente se hace en base a años, puede ser
- *  decimal, por ejemplo: 1,5 equivaldria a un año y medio)
+ *  -Numero de`periodos totales que consta el bono (normalmente se hace en base a aÃ±os, puede ser
+ *  decimal, por ejemplo: 1,5 equivaldria a un aÃ±o y medio)
  *  -Valor del periodo principal (normalmente es anual (1), pero puede ser mas)
  * Algunas restricciones puede ser que el numero de periodos sobre el periodo principal
  * tiene que ser igual o mayor a este mismo y que el numero de subperiodos o periodos (si no se utilizan)
@@ -33,7 +33,7 @@ class Bono_TIR {
   }
   void setError(double e) {
 
-   //Solo tenemos en cuenta los errores pequeños
+   //Solo tenemos en cuenta los errores pequeÃ±os
    if(e < error){
     error = e;
    }
