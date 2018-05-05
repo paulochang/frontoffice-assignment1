@@ -7,6 +7,7 @@
  * las clases superiores se ocuparan de calcularlo.
  */
 
+ //TODO: Implement actual floating cash flow
 std::vector<double> FloatingLeg::getLegCashFlows(std::vector<double> dayCountFractionVector) {
     std::vector<double> legCashFlows{};
     for (auto currentFraction : dayCountFractionVector)
