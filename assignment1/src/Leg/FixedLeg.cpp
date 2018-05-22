@@ -1,4 +1,5 @@
 #include "FixedLeg.h"
+
 /**
  * Implementacion de la clase 'FixedLeg' que representa los pagos fijos
  * Para calcular los flujos de caja se necesitan saber los periodos de pago, para calcular las fracciones de año
@@ -23,6 +24,17 @@ double FixedLeg::price() {
     //Calculate the legCashFlows
     std::vector<double> legCashFlows{getLegCashFlows(dayCountFractionVector)};
 
+    //
+    std::vector<double> legDiscountFactors(getDiscountFactors(dayCountFractionVector));
+    
+    double totalDiscountedValue = 0.0;
+    double currentPeriodFraction = 0.0;
+
+    for (int i = 0; i < dayCountFractionVector.size(); ++i) {
+        currentPeriodFraction += dayCountFractionVector.at(i);
+        totalDiscountedValue += continuous_discount(legCashFlows.at(i), legDiscountFactors.at(i), currentPeriodFraction);
+    }
+
     /*//Calculamos la valoracion de la pata fija
     double res = 0.0;
     double rActInc = 0.0;
@@ -30,5 +42,5 @@ double FixedLeg::price() {
         rActInc += dayCountFractionVector.at(i-1);
         res += legCashFlows.at(i - 1) * std::exp(-(m_rate * rActInc));
     }*/
-    return 0.0;
+    return totalDiscountedValue;
 }

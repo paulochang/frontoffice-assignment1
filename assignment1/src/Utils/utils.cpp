@@ -24,6 +24,24 @@ double period_discount_factor(double annual_rate, int periods_per_year, int year
     return pow(cap_per_period, -total_periods);
 }
 
+double annual_discount(double amount, double annual_rate, int years) {
+    double discount_rate = annual_discount_factor(annual_rate, years);
+    double result = amount * discount_rate;
+    return result;
+}
+
+double period_discount(double amount, double annual_rate, int periods_per_year, int years) {
+    double discount_rate = period_discount_factor(annual_rate, periods_per_year, years);
+    double result = amount * discount_rate;
+    return result;
+}
+
+double continuous_discount(double amount, double continuous_rate, int years) {
+    double discount_rate = continuous_discount_factor(continuous_rate, years);
+    double result = amount * discount_rate;
+    return result;
+}
+
 double annual_capitalization(double amount, double annual_rate, int years) {
     double capitalization_rate = 1.0/annual_discount_factor(annual_rate, years);
     double result = amount * capitalization_rate;

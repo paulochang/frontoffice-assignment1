@@ -23,6 +23,8 @@ double FloatingLeg::price() {
     //Calculate the legCashFlows
     std::vector<double> legCashFlows{getLegCashFlows(dayCountFractionVector)};
 
+    //
+    std::vector<double> legDiscountFactors(getDiscountFactors(dayCountFractionVector));
 
     /*//Calculamos la valoracion de la pata fija
     double res = 0.0;

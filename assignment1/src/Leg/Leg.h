@@ -4,7 +4,10 @@
 #include <string>
 #include <utility>
 #include <vector>
+#include <Leg/ZeroCurve/ZeroCouponCurve.h>
 #include "Btime/DayCountCalculator.h"
+#include <Utils/utils.h>
+
 /**
  * Clase que representa una pata de un instrumento financiero.
  * Una pata de un instrumento financiero se considera una serie de peridos en un intervalo de tiempo concreto
@@ -26,9 +29,7 @@ protected:
     double m_rate;
     std::vector<boost::gregorian::date> m_payingDates;
     DayCountCalculator &m_dayCalculator;
-
-
-
+    ZeroCouponCurve &m_zeroCouponCurve;
 
     virtual std::vector<double> getLegCashFlows(std::vector<double> dayCountFractionVector) = 0;
 
@@ -39,8 +40,10 @@ public:
     /// \param rate represents the fixed rate in a fixed leg requirement or the first "real" rate in floating lets
     /// \param referenceDates a vector with the reference dates (first date is start date, last date is end date)
     /// \param dayCalculator the kind of days calculator to use (depends on convention)
-    Leg(double notional, double rate, std::vector<boost::gregorian::date> referenceDates, DayCountCalculator &dayCalculator) :
-            m_notional{notional}, m_rate{rate}, m_payingDates{std::move(referenceDates)}, m_dayCalculator{dayCalculator} {}
+    Leg(double notional, double rate, std::vector<boost::gregorian::date> referenceDates,
+        DayCountCalculator &dayCalculator, ZeroCouponCurve &zeroCouponCurve) :
+            m_notional{notional}, m_rate{rate}, m_payingDates{std::move(referenceDates)},
+            m_dayCalculator{dayCalculator}, m_zeroCouponCurve{zeroCouponCurve} {}
 
     //Destructor
     virtual ~Leg();
@@ -58,5 +61,17 @@ public:
 
         return dayCountFractionVector;
     }
+
+    std::vector<double> getDiscountFactors(std::vector<double> dayCountFractionVector) {
+        std::vector<double> discountFactors{};
+        for (int i = 0; i < dayCountFractionVector.size(); ++i) {
+            discountFactors.emplace_back(continuous_discount_factor(dayCountFractionVector.at(i),
+                                                                   m_zeroCouponCurve.getRateFromDateString(
+                                                                           m_payingDates.at(i))));
+        }
+
+        return discountFactors;
+    }
 };
+
 #endif

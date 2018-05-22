@@ -13,7 +13,7 @@ public:
 
     double price();
 
-    Swap(Leg *Receiver, Leg *Payer, ZeroCouponCurve zeroRateCurve) : Instrument(Receiver, std::move(zeroRateCurve)) {
+    Swap(Leg *Receiver, Leg *Payer) : Instrument(Receiver) {
         thePayer = Payer;
     }
 };

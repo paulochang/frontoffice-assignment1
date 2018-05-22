@@ -20,13 +20,13 @@ private:
     //Mapa que contiene los tipos de interes agrupados por fecha
     std::map<boost::gregorian::date, double> m_mapZeroRates{};
 
-    //Carga el mapa de valores
-    void loadDefaultZCMap();
-
 public:
 
     ZeroCouponCurve() {
-        loadDefaultZCMap();
+        m_mapZeroRates[boost::gregorian::from_string("03/10/2016")] = 0.0474;
+        m_mapZeroRates[boost::gregorian::from_string("03/04/2017")] = 0.05;
+        m_mapZeroRates[boost::gregorian::from_string("02/10/2017")] = 0.051;
+        m_mapZeroRates[boost::gregorian::from_string("02/04/2018")] = 0.052;
     }
 
     explicit ZeroCouponCurve(std::map<boost::gregorian::date, double> ratesMap) {

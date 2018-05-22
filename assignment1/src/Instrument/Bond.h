@@ -13,7 +13,7 @@ public:
 
     double price();
 
-    Bond(FixedLeg *Receiver, ZeroCouponCurve zeroRateCurve) : Instrument(Receiver, zeroRateCurve) {}
+    Bond(FixedLeg *Receiver) : Instrument(Receiver) {}
 
 };
 
