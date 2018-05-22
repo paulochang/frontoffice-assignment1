@@ -1,7 +1,7 @@
 
 
 #include <boost/math/tools/roots.hpp>
-#include <boost/math/tools/numerical_differentiation.hpp>
+//#include <boost/math/tools/numerical_differentiation.hpp>
 
 //namespace boost { namespace math {
 //namespace tools {
@@ -42,9 +42,9 @@ public:
 	   cbrt_functor(T const& target) : a(target){}
 	   std::tuple<T, T> operator()(T const& z)
 	   {
-	      //T sqr = z * z;
-	      //return std::make_tuple(sqr * z - a, 3 * sqr);
-			 return std::make_tuple(value(4, 0.5, z, {5.0, 5.8, 6.4, 6.8}), finite_difference_derivative(value, 4, 0.5, z, {5.0, 5.8, 6.4, 6.8}));
+	      T sqr = z * z;
+	     return std::make_tuple(sqr * z - a, 3 * sqr);
+			 //return std::make_tuple(value(4, 0.5, z, {5.0, 5.8, 6.4, 6.8}), finite_difference_derivative(value, 4, 0.5, z, {5.0, 5.8, 6.4, 6.8}));
 	   }
 	private:
 	   T a;
