@@ -24,23 +24,28 @@ double FixedLeg::price() {
     //Calculate the legCashFlows
     std::vector<double> legCashFlows{getLegCashFlows(dayCountFractionVector)};
 
-    //
+    //Calculate discount factors
     std::vector<double> legDiscountFactors(getDiscountFactors(dayCountFractionVector));
-    
-    double totalDiscountedValue = 0.0;
-    double currentPeriodFraction = 0.0;
 
-    for (int i = 0; i < dayCountFractionVector.size(); ++i) {
-        currentPeriodFraction += dayCountFractionVector.at(i);
-        totalDiscountedValue += continuous_discount(legCashFlows.at(i), legDiscountFactors.at(i), currentPeriodFraction);
-    }
+    //Sum up discounted cashflows
+    double totalDiscountedValue = getDiscountedValue(dayCountFractionVector, legDiscountFactors, legCashFlows);
 
-    /*//Calculamos la valoracion de la pata fija
-    double res = 0.0;
-    double rActInc = 0.0;
-    for (int i = 1; i < m_payingDates.size(); i++) {
-        rActInc += dayCountFractionVector.at(i-1);
-        res += legCashFlows.at(i - 1) * std::exp(-(m_rate * rActInc));
-    }*/
     return totalDiscountedValue;
 }
+
+double FixedLeg::estimate_price(double interestRate) {
+    //Generate day count fraction vector
+    std::vector<double> dayCountFractionVector{getDayCountFractionVector()};
+
+    std::vector<double> legCashFlows{};
+    for (auto currentFraction : dayCountFractionVector)
+        legCashFlows.emplace_back(interestRate * currentFraction * m_notional);
+
+    //Calculate discount factors
+    std::vector<double> legDiscountFactors(getDiscountFactors(dayCountFractionVector));
+
+    //Sum up discounted cashflows
+    double totalDiscountedValue = getDiscountedValue(dayCountFractionVector, legDiscountFactors, legCashFlows);
+
+    return totalDiscountedValue;
+};

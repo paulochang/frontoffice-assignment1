@@ -51,6 +51,8 @@ public:
     //Metodo abstracto para calcular el precio de una pata
     virtual double price() = 0;
 
+    virtual double estimate_price(double x) = 0;
+
     std::vector<double> getDayCountFractionVector() {
         std::vector<double> dayCountFractionVector{};
 
@@ -71,6 +73,18 @@ public:
         }
 
         return discountFactors;
+    }
+
+    double getDiscountedValue(std::vector<double> &dayCountFractionVector, std::vector<double> &legDiscountFactors,
+                              std::vector<double> &legCashFlows) {
+        double totalDiscountedValue = 0.0;
+        double currentPeriodFraction = 0.0;
+
+        for (int i = 0; i < dayCountFractionVector.size(); ++i) {
+            currentPeriodFraction += dayCountFractionVector.at(i);
+            totalDiscountedValue += continuous_discount(legCashFlows.at(i), legDiscountFactors.at(i), currentPeriodFraction);
+        }
+        return totalDiscountedValue;
     }
 };
 
