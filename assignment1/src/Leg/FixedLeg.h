@@ -21,6 +21,8 @@ public:
     double price() override;
 
     std::vector<double> getLegCashFlows(std::vector<double> dayCountFractionVector) override;
+
+    double getRateValue(double x) override;
 };
 
 #endif //SQF_FIXEDLEG_H

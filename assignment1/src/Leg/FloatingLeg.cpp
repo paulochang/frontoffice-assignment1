@@ -15,6 +15,10 @@ std::vector<double> FloatingLeg::getLegCashFlows(std::vector<double> dayCountFra
     return legCashFlows;
 }
 
+double FloatingLeg::getRateValue(double x) {
+  return 0;
+}
+
 //Clase FixedLeg
 double FloatingLeg::price() {
     //Generate day count fraction vector

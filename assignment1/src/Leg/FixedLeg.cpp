@@ -14,6 +14,10 @@ std::vector<double> FixedLeg::getLegCashFlows(std::vector<double> dayCountFracti
     return legCashFlows;
 }
 
+double FixedLeg::getRateValue(double x) {
+  return 0;
+}
+
 //Clase FixedLeg
 double FixedLeg::price() {
 

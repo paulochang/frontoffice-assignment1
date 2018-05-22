@@ -32,6 +32,8 @@ protected:
 
     virtual std::vector<double> getLegCashFlows(std::vector<double> dayCountFractionVector) = 0;
 
+    virtual double getRateValue(double x) = 0;
+
 public:
 
     /// Creates a base Leg object
