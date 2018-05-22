@@ -23,10 +23,10 @@ private:
 public:
 
     ZeroCouponCurve() {
-        m_mapZeroRates[boost::gregorian::from_string("03/10/2016")] = 0.0474;
-        m_mapZeroRates[boost::gregorian::from_string("03/04/2017")] = 0.05;
-        m_mapZeroRates[boost::gregorian::from_string("02/10/2017")] = 0.051;
-        m_mapZeroRates[boost::gregorian::from_string("02/04/2018")] = 0.052;
+        m_mapZeroRates[boost::gregorian::from_string("2016-10-03")] = 0.0474;
+        m_mapZeroRates[boost::gregorian::from_string("2017-04-03")] = 0.05;
+        m_mapZeroRates[boost::gregorian::from_string("2017-10-02")] = 0.051;
+        m_mapZeroRates[boost::gregorian::from_string("2018-04-02")] = 0.052;
     }
 
     explicit ZeroCouponCurve(std::map<boost::gregorian::date, double> ratesMap) {
