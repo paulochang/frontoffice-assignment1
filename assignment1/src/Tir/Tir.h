@@ -1,68 +1,90 @@
-
-
 #include <boost/math/tools/roots.hpp>
-//#include <boost/math/tools/numerical_differentiation.hpp>
+#include "Leg/FixedLeg.h"
+#include <Leg/ZeroCurve/ZeroCouponCurve.h>
+#include <boost/bind.hpp>
+#include "Btime/DayCountCalculator.h"
+#include "Instrument/Instrument.h"
 
-//namespace boost { namespace math {
-//namespace tools {
+class Tir{
 
-class Bono_TIR{
+	Instrument myBond;
+	FixedLeg myLeg;
 
+	/*
+	double notional = 100;
+	double rate = 5.0/100;
+	std::vector<boost::gregorian::date> referenceDates {};
+	Actual_360 actualCalc = Actual_360();
+	ZeroCouponCurve zeroCouponCurve {};
+	*/
 
 public:
 
-	static double value (double tSubperiods, double pIncrement, double actIRate, std::vector<double> CashFlows){
-		int i = 0, j;
+	/*
+	Tir(Instrument p_bond, double p_notional, double p_rate, std::vector<boost::gregorian::date> p_referenceDates, Actual_360 p_actualCalc){
 
-		double bValue = 0.0;
-		double notional = 100;
-		for(j = 0; j < tSubperiods; j++){
-			double actInc = ((j + 1) * pIncrement);
-			//bValue += (aCashFlows.at(j) + ((j == (tSubperiods - 1)) ? notional : 0)) * std::exp(-(actIRate * actInc));
-			bValue += (CashFlows.at(j) + ((j == (tSubperiods - 1)) ? notional : 0)) * std::exp(-(actIRate * actInc));
-		}
-		return bValue;
+		bond = p_bond;
+		notional = p_notional;
+		rate = p_rate;
+		referenceDates = p_referenceDates;
+		actualCalc = p_actualCalc;
+
+	}
+	*/
+
+	Tir (Instrument bond, FixedLeg fixed_leg){
+
+		myBond = bond;
+		myLeg = fixed_leg;
+
 	}
 
-	static double der_value(double tSubperiods, double pIncrement, double actIRate, std::vector<double> CashFlows){
-		int i = 0, j;
-		double notional = 100;
-		double derBValue = 0.0;
-		for(j = 0; j < tSubperiods; j++){
-			double actInc = ((j + 1) * pIncrement);
-			//derBValue += (-actInc) * (aCashFlows.at(j) + ((j == (tSubperiods - 1)) ? notional : 0)) * std::exp(-(actIRate * actInc));
-			derBValue += (-actInc) * (CashFlows.at(j) + ((j == (tSubperiods - 1)) ? notional : 0)) * std::exp(-(actIRate * actInc));
-		}
-		return derBValue;
-	}
+	/*
+	bracket_and_solve_root(
+	      F f,
+	      const T& guess,
+	      const T& factor,
+	      bool rising,
+	      Tol tol,
+	      boost::uintmax_t& max_iter);
+	*/
 
 	template <class T>
-	struct cbrt_functor
-	{
-	   cbrt_functor(T const& target) : a(target){}
-	   std::tuple<T, T> operator()(T const& z)
-	   {
-	      T sqr = z * z;
-	     return std::make_tuple(sqr * z - a, 3 * sqr);
-			 //return std::make_tuple(value(4, 0.5, z, {5.0, 5.8, 6.4, 6.8}), finite_difference_derivative(value, 4, 0.5, z, {5.0, 5.8, 6.4, 6.8}));
-	   }
+	struct tir_functor {
+
+	  tir_functor(T const& to_find_tir_of) : a(to_find_tir_of){}
+	  T operator()(T const& x)
+	  {
+			T fx = myLEg.estimate_price(x) - myBond.price();
+	    return fx;
+	  }
 	private:
-	   T a;
+	  T a;
 	};
 
-public:
-	template <class T>
-	T cbrt(T z)
-	{
-	   using namespace std;
-	   int exp;
-	   frexp(z, &exp);
-	   T min = 0;//ldexp(0.5, exp/3);
-	   T max = 10;//ldexp(2.0, exp/3);
-	   T guess = z;//ldexp(1.0, exp/3);
-	   int digits = std::numeric_limits<T>::digits;
-	   return boost::math::tools::newton_raphson_iterate(cbrt_functor<T>(z), guess, min, max, digits);
+	double Get_Tir(double guess, double factor){
+
+		FixedLeg myLeg {notional, rate, referenceDates, actualCalc, zeroCouponCurve};
+
+		// Max iterations
+		const boost::uintmax_t maxit = 10000;
+		boost::uintmax_t it = maxit;
+
+		// Improving result
+		bool is_rising = true;
+
+		// Epsilon tolerance
+		int digits = std::numeric_limits<double>::digits;
+		int get_digits = digits - 3;
+		boost::math::tools::eps_tolerance<double> tol(get_digits);
+
+		// Get roots
+		std::pair<double, double> r = bracket_and_solve_root(tir_functor<double>(guess), guess, factor, is_rising, tol, it);
+
+		// Midway between brackets
+		return r.first + (r.second - r.first)/2;
+
+
 	}
 
 };
-//}}}
