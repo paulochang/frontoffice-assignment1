@@ -7,16 +7,17 @@
  * las clases superiores se ocuparan de calcularlo.
  */
 
+
  //TODO: Implement actual floating cash flow
 std::vector<double> FloatingLeg::getLegCashFlows(std::vector<double> dayCountFractionVector) {
     std::vector<double> legCashFlows{};
-    for (auto currentFraction : dayCountFractionVector)
-        legCashFlows.emplace_back(m_rate * currentFraction * m_notional);
-    return legCashFlows;
-}
+     for (int i = 0; i < dayCountFractionVector.size(); ++i) {
 
-double FloatingLeg::getRateValue(double x) {
-  return 0;
+     }
+    //for (auto currentFraction : dayCountFractionVector)
+    //    legCashFlows.emplace_back(m_rate * currentFraction * m_notional);
+
+    return legCashFlows;
 }
 
 //Clase FixedLeg
@@ -24,16 +25,18 @@ double FloatingLeg::price() {
     //Generate day count fraction vector
     std::vector<double> dayCountFractionVector{getDayCountFractionVector()};
 
+    //Calculate the discount factors
+    std::vector<double> legDiscountFactors(getDiscountFactors(dayCountFractionVector));
+
     //Calculate the legCashFlows
     std::vector<double> legCashFlows{getLegCashFlows(dayCountFractionVector)};
 
+    //Sum up discounted cashflows
+    double totalDiscountedValue = getDiscountedValue(dayCountFractionVector, legDiscountFactors, legCashFlows);
 
-    /*//Calculamos la valoracion de la pata fija
-    double res = 0.0;
-    double rActInc = 0.0;
-    for (int i = 1; i < m_payingDates.size(); i++) {
-        rActInc += dayCountFractionVector.at(i-1);
-        res += legCashFlows.at(i - 1) * std::exp(-(m_rate * rActInc));
-    }*/
-    return 0.0;
+    return totalDiscountedValue;
 }
+
+double FloatingLeg::estimate_price(double x) {
+    return 0;
+};

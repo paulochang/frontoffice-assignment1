@@ -16,8 +16,8 @@ public:
 
     // Constructor (LLamamos al constructor de la superclase)
     FloatingLeg(double notional, double rates, std::vector<boost::gregorian::date> referenceDates,
-                DayCountCalculator &dayCalculator, ZeroCouponCurve index) :
-            Leg(notional, rates, std::move(referenceDates), dayCalculator) {
+                DayCountCalculator &dayCalculator, ZeroCouponCurve &zeroCouponCurve,  ZeroCouponCurve index) :
+            Leg(notional, rates, std::move(referenceDates), dayCalculator, zeroCouponCurve) {
         m_index = index;
     }
 
@@ -26,7 +26,7 @@ public:
 
     std::vector<double> getLegCashFlows(std::vector<double> dayCountFractionVector) override;
 
-    double getRateValue(double x) override;
+    double estimate_price(double x) override;
 };
 
 #endif //SQF_FLOATINGLEG_H

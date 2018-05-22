@@ -3,6 +3,7 @@
 
 #include <boost/test/unit_test.hpp>
 #include "Leg/FixedLeg.h"
+#include <Leg/ZeroCurve/ZeroCouponCurve.h>
 
 namespace utf = boost::unit_test;
 
@@ -23,7 +24,9 @@ BOOST_AUTO_TEST_SUITE(leg_test_suite)
 
         Actual_360 actualCalc = Actual_360();
 
-        FixedLeg myLeg {notional, rate, referenceDates, actualCalc};
+        ZeroCouponCurve zeroCouponCurve {};
+
+        FixedLeg myLeg {notional, rate, referenceDates, actualCalc, zeroCouponCurve};
         std::vector<double> calculated_values = myLeg.getDayCountFractionVector();
 
         double myDoubles[] = {0.513888888, 0.505555555, 0.505555555, 0.505555555 };
@@ -49,7 +52,9 @@ BOOST_AUTO_TEST_SUITE(leg_test_suite)
 
         Actual_360 actualCalc = Actual_360();
 
-        FixedLeg myLeg {notional, rate, referenceDates, actualCalc};
+        ZeroCouponCurve zeroCouponCurve {};
+
+        FixedLeg myLeg {notional, rate, referenceDates, actualCalc, zeroCouponCurve};
 
         double myDoubles[] = {0.51388888888, 0.505555555555, 0.505555555555, 0.505555555555 };
         std::vector<double> dayCountFractionVector (myDoubles, myDoubles + sizeof(myDoubles) / sizeof(double) );

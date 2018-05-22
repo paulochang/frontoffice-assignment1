@@ -9,6 +9,12 @@ double annual_discount_factor(double annual_rate, int years);
 
 double period_discount_factor(double annual_rate, int periods_per_year, int years);
 
+double annual_discount(double amount, double annual_rate, int years);
+
+double period_discount(double amount, double annual_rate, int periods_per_year, int years);
+
+double continuous_discount(double amount, double continuous_rate, int years);
+
 double annual_capitalization(double amount, double annual_rate, int years);
 
 double period_capitalization(double amount, double annual_rate, int periods_per_year, int years);
